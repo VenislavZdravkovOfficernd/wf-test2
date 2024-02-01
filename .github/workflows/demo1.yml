@@ -2,7 +2,12 @@ name: Events Demo 1
 on: 
     pull_request:
         types: [opened, synchronize, reopened] # this is default, but for learning purposes is written explicit
+        # branches: [main] # expressions like 'dev-*', 'feat/**' are possible you can branch filter to pull requests 
     workflow_dispatch:
+    push: 
+        branches: [main] # expressions like 'dev-*', 'feat/**' are possible
+        paths-ignore: 
+            - '.github/workflows/*'  # commits to workflows won't trigger the workflow
 jobs: 
     test:
       runs-on: ubuntu-latest
