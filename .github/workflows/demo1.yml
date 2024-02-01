@@ -1,0 +1,26 @@
+name: Events Demo 1
+on: [push, workflow_dispatch]
+jobs: 
+    test:
+      runs-on: ubuntu-latest
+      steps: 
+          - name: Output event data
+            run: echo "The event type is ${{ toJSON(github.event) }}" 
+          - name: Get code 
+            uses: actions/checkout@v4
+          - name: Install dependencies 
+            run: yarn install
+          - name: Run tests
+            run: yarn test
+    deploy:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+          - name: Get code 
+            uses: actions/checkout@v4
+          - name: Install dependencies 
+            run: yarn install
+          - name: Build code 
+            run: yarn build 
+          - name: Deploy to staging
+            run: echo "Simulating deploying to staging server...."
